@@ -48,12 +48,15 @@
         if(argc > 1)    port = QVariant(argv[1]).toInt();
         else            port = 1234;
 
-
         QString db_name;
         if(argc > 2)    db_name = QVariant(argv[2]).toString();
-        else            db_name = "/home/letitbe/test_db";
+        else            db_name = "/home/test_db";
 
-        test_server * server = new test_server(port,db_name,"/home/letitbe/log_file.txt",&a);
+        QString log_file;
+        if(argc > 3)    log_file = QVariant(argv[3]).toString();
+        else            log_file = "/home/log_file";
+
+        test_server * server = new test_server(port,db_name,log_file,&a);
         QObject::connect(server, &test_server::ServiceTerminated,&a,&QCoreApplication::quit,Qt::QueuedConnection);
         return a.exec();
     }
