@@ -5,6 +5,7 @@ TinyDB::TinyDB(QString ConnectionName, QString db_name,QObject *parent) :
     QObject(parent)
 {
     QString d = db_name;
+    this->ConnectionName = ConnectionName;
     db = QSqlDatabase::addDatabase("QSQLITE",ConnectionName);
     db.setDatabaseName(db_name);
     Valid = db.open();
@@ -48,7 +49,7 @@ int  TinyDB::SQLiteWriteOneRow(QString table_name, const QVariantList &FieldsLis
 {
     errString.clear();
     int newID = -1;
-    db.database("MY");
+    db.database(ConnectionName);
     if(db.isValid() && FieldsList.count() >= 2){
 
         db.setDatabaseName(db.databaseName());
@@ -73,5 +74,5 @@ int  TinyDB::SQLiteWriteOneRow(QString table_name, const QVariantList &FieldsLis
 
 TinyDB::~TinyDB()
 {
-    db.removeDatabase("MY");
+    db.removeDatabase(ConnectionName);
 }
