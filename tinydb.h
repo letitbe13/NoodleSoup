@@ -23,6 +23,7 @@ public slots:
 private:
     QSqlDatabase db;
     bool Valid;
+    QString ConnectionName;
 };
 
 #endif // TINYDB_H
